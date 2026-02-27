@@ -3,268 +3,276 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 認知行為與深層人格分析系統 (CB-DPAS)</title>
+    <title>2026 大腦微反應與潛意識行為分析</title>
     <style>
+        /* 質感漸層背景與基礎設定 */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f0f2f5;
-            color: #1c1e21;
+            font-family: 'PingFang TC', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            color: #333;
             margin: 0;
-            padding: 0;
+            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             overflow-x: hidden;
         }
-        .app-container {
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             width: 100%;
-            max-width: 700px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            padding: 40px;
+            max-width: 600px;
+            padding: 40px 30px;
             box-sizing: border-box;
             position: relative;
+            animation: slideUp 0.6s ease-out;
         }
-        /* 頂部進度條 */
-        .progress-header {
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* 進度條設計 */
+        .progress-container {
             display: flex;
-            justify-content: space-between;
             align-items: center;
             margin-bottom: 30px;
             font-size: 0.9em;
-            color: #888;
+            color: #666;
             font-weight: bold;
         }
-        .progress-bar-bg {
+        .progress-bar {
             flex-grow: 1;
-            height: 6px;
-            background-color: #e4e6eb;
+            height: 8px;
+            background-color: #eee;
             margin: 0 15px;
-            border-radius: 3px;
+            border-radius: 4px;
             overflow: hidden;
         }
-        .progress-bar-fill {
+        .progress-fill {
             height: 100%;
-            background-color: #0064e0;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
             width: 0%;
             transition: width 0.4s ease;
         }
-        /* 題目區塊 */
+
+        /* 題目與選項 */
         .question-text {
-            font-size: 1.5em;
+            font-size: 1.4em;
             font-weight: 600;
-            margin-bottom: 30px;
-            line-height: 1.4;
-            color: #1c1e21;
+            margin-bottom: 25px;
+            line-height: 1.5;
+            color: #2d3748;
         }
         .options-grid {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 15px;
         }
         .option-btn {
-            background-color: #f7f8fa;
-            border: 2px solid #e4e6eb;
-            border-radius: 12px;
-            padding: 16px 20px;
+            background-color: #fff;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 18px 20px;
             font-size: 1.1em;
             text-align: left;
             cursor: pointer;
             transition: all 0.2s;
-            color: #333;
+            color: #4a5568;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
         .option-btn:hover {
-            background-color: #ebedf0;
-            border-color: #ccd0d5;
+            border-color: #a0aec0;
+            background-color: #f7fafc;
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
-        /* 假加載畫面 */
-        #loading-section {
-            display: none;
-            text-align: center;
-            padding: 50px 0;
-        }
+
+        /* 載入畫面 */
+        #loading-section { display: none; text-align: center; padding: 40px 0; }
         .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #0064e0;
+            width: 60px; height: 60px;
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #764ba2;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin: 0 auto 20px auto;
+            margin: 0 auto 25px auto;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        /* 最終結果與醜照區 */
-        #result-section {
+
+        /* 假結果與驚喜畫面 */
+        #fake-result-section, #real-surprise-section {
             display: none;
             text-align: center;
-            animation: fadeIn 1s;
+            animation: fadeIn 0.8s;
         }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         
+        .result-title { color: #4a5568; font-size: 1.8em; margin-bottom: 15px; }
+        .result-text { text-align: left; line-height: 1.8; color: #4a5568; font-size: 1.1em; margin-bottom: 30px; }
+        
+        .action-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; border: none; border-radius: 30px;
+            padding: 15px 30px; font-size: 1.2em; font-weight: bold;
+            cursor: pointer; width: 100%; box-shadow: 0 4px 15px rgba(118, 75, 162, 0.4);
+            transition: transform 0.2s;
+        }
+        .action-btn:hover { transform: scale(1.02); }
+
         .ugly-photo {
-            width: 100%;
-            max-width: 400px;
-            border-radius: 15px;
-            margin: 20px 0;
-            border: 8px solid #fff;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%; max-width: 350px;
+            border-radius: 20px; margin: 20px 0;
+            border: 6px solid #fff;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
-        .birthday-title {
-            font-size: 2.5em;
-            color: #e74c3c;
-            margin: 10px 0;
-        }
+        .bday-text { font-size: 2.5em; color: #d63031; font-weight: bold; margin: 15px 0; }
     </style>
 </head>
 <body>
 
-    <div class="app-container">
+    <div class="card">
         
         <div id="quiz-section">
-            <div class="progress-header">
-                <span id="q-number">Q1</span>
-                <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-fill"></div></div>
-                <span id="q-total">/ 10</span>
+            <div class="progress-container">
+                <span id="q-num">Q1</span>
+                <div class="progress-bar"><div class="progress-fill" id="p-fill"></div></div>
+                <span>/ 10</span>
             </div>
-            
-            <div class="question-text" id="question-text">載入中...</div>
-            <div class="options-grid" id="options-container">
-                </div>
+            <div class="question-text" id="q-text">載入中...</div>
+            <div class="options-grid" id="opt-container"></div>
         </div>
 
         <div id="loading-section">
             <div class="spinner"></div>
-            <h2 style="color: #0064e0;">CB-DPAS 系統分析中...</h2>
-            <p style="color: #666;" id="loading-text">正在交叉比對神經突觸與行為數據庫...</p>
+            <h2 style="color: #4a5568;">系統演算中...</h2>
+            <p style="color: #718096; font-size: 1.1em;" id="loading-msg">正在量化您的行為決策模組...</p>
         </div>
 
-        <div id="result-section">
-            <h2 style="color: #333;">分析完成：發現特異樣本！</h2>
-            <p style="font-size: 1.1em; color: #555;">根據您最後兩題的防禦機制反應，系統判定您的真實身份為：</p>
+        <div id="fake-result-section">
+            <h2 class="result-title">📊 綜合行為分析報告</h2>
+            <h3 style="color: #764ba2; margin-top: -10px;">您的潛意識型態：【非典型變異個體】</h3>
+            <div class="result-text">
+                <p>根據數據交叉比對，特別是最後兩項「極端情境下的肌肉反射」指標，系統發現您的決策模式打破了常規的心理學框架。</p>
+                <p>您外表看似隨和、適應力強，但在面臨突發危機（例如衛生紙匱乏的絕境）時，您的大腦能瞬間切換至高階生存模式，展現出驚人的情緒控管與韌性。</p>
+                <p>此類基因型態在系統資料庫中僅佔 <strong>0.03%</strong>。系統已根據您的特質，生成了您專屬的「深層靈魂具象化圖像」。</p>
+            </div>
+            <button class="action-btn" onclick="showSurprise()">點擊解鎖深層特質圖像 👇</button>
+        </div>
+
+        <div id="real-surprise-section">
+            <p style="font-size: 1.3em; color: #d63031; font-weight: bold; margin-bottom: 5px;">通常擁有這種特質的人，長這樣：</p>
             
             <img class="ugly-photo" src="funny-pic.jpg" alt="專屬特質照">
             
-            <h1 class="birthday-title">🎉 儒馨，生日快樂！ 🎉</h1>
-            <p style="font-size: 1.2em; color: #666; margin-top: 15px;">
-                好啦不鬧了！前面八題我掰得超辛苦的好嗎😂<br>
-                祝遠在台中的妳，新的一年一切順心、每天開心！
+            <div class="bday-text">🎉 儒馨，生日快樂 🎉</div>
+            <p style="font-size: 1.1em; color: #4a5568; line-height: 1.6;">
+                好啦不鬧了！前面八題我掰得超辛苦的好嗎 😂<br>
+                祝遠在台中的妳，新的一年一切順心、每天開心！<br>
+                （這張極度稀有的照片記得好好珍藏）
             </p>
         </div>
 
     </div>
 
     <script>
-        // 題庫設定：1-8題嚴肅，9-10題歪掉
         const questions = [
             {
-                q: "在面對突如其來的壓力環境時，您的首要認知反應通常是？",
-                options: ["快速重組現有資訊，進行邏輯分析", "尋求外部情感支持與共鳴", "先壓抑情緒，待環境安全後釋放", "啟動迴避機制，暫時轉移注意力"]
+                q: "當早晨鬧鐘響起時，您的第一波腦內啡分泌通常伴隨什麼行為？",
+                options: ["瞬間彈起，立刻開始運作", "閉著眼睛摸索，精準按下貪睡按鈕", "躺在床上懷疑人生至少五分鐘", "其實在鬧鐘響之前就已經醒了"]
             },
             {
-                q: "當您在群體決策中遇到價值觀衝突，您傾向採取的行為模式為？",
-                options: ["堅持客觀數據，試圖說服多數", "擔任協調者，尋求雙贏的折衷方案", "表面順從，但內心保留獨立判斷", "重新審視自身盲點，接受不同觀點"]
+                q: "在面對「午餐吃什麼」的決策矩陣時，您的大腦運算模式偏向？",
+                options: ["大腦不思考，迅速鎖定最常吃的店家", "陷入漫長的多變數評估（俗稱選擇障礙）", "放棄運算，直接盲從同事或朋友的決定", "交給外送平台的演算法推薦"]
             },
             {
-                q: "關於處理高度複雜的抽象問題，您的大腦更習慣依賴？",
-                options: ["過去成功經驗的具象化投射", "瞬間的直覺與發散性思考", "嚴謹的歸納與演繹邏輯", "權威學術或專家理論的框架"]
+                q: "進入超過10人的陌生社交力場時，您的能量消耗狀態是？",
+                options: ["快速充電，如魚得水般穿梭", "表面看似正常，但內心電量狂掉", "啟動省電模式，躲在角落默默觀察", "尋找最近的出口準備逃生"]
             },
             {
-                q: "在心理學的「能量恢復模型」中，您認為哪種情境最能補充您的認知能量？",
-                options: ["深度獨處，關閉所有社交訊號", "與少數高頻率共振的知己深度對話", "進入充滿未知與新刺激的社交場合", "進入心流狀態，專注於特定嗜好"]
+                q: "當通訊軟體出現「未讀紅點」時，您的視覺神經反射為？",
+                options: ["強迫症發作，立刻點開消除紅點", "選擇性無視，未讀訊息累積到 999+", "只看通知預覽，假裝自己還沒看到", "早就關閉所有通知，與世無爭"]
             },
             {
-                q: "評估一個人的可信度與人格特質時，您潛意識最看重的指標是？",
-                options: ["對方在壓力下的下意識行為", "溝通時的微表情與肢體語言", "他人對其累積的綜合評價", "其表達邏輯的嚴密與一致性"]
+                q: "在執行需要高度專注的任務時，您最常出現的「注意力漂移」路徑是？",
+                options: ["突然想滑一下手機（然後過了一小時）", "腦中開始自動循環播放某首洗腦神曲", "突然覺得桌面很亂，開始大掃除", "幾乎不會漂移，能輕易進入心流狀態"]
             },
             {
-                q: "面對未來的不確定性，您的防禦機制通常表現為？",
-                options: ["制定極度詳細的防禦性計畫", "設定模糊大方向，保留高彈性", "秉持宿命論，順應環境變化", "透過積極的心理暗示降低焦慮"]
+                q: "大腦海馬迴在提取「忘記密碼」的記憶時，您通常的應對機制是？",
+                options: ["試圖輸入所有自己常用的生日組合", "直接放棄思考，點擊「忘記密碼」重置", "翻找某本記載神秘代碼的實體小本本", "密碼全部設一模一樣，沒這個困擾"]
             },
             {
-                q: "當接觸到一項顛覆您既有認知的科學理論時，您需要什麼條件才會接受？",
-                options: ["看到嚴謹的雙盲實驗與量化數據", "理論能在現實生活中被具體驗證", "推演過程完美符合您自身的邏輯", "有頂尖學術機構或指標性人物背書"]
+                q: "在網路購物的情緒波段中，哪一個時刻您的多巴胺分泌最旺盛？",
+                options: ["將商品加入購物車的那一瞬間", "收到「您的包裹已出貨」的通知時", "暴力拆開包裹紙箱的那一刻", "什麼都沒買，單純看別人花錢就很爽"]
             },
             {
-                q: "根據大腦前額葉皮質的決策偏好，您在進行重要消費時通常是？",
-                options: ["徹底研究所有規格與性價比", "被產品的品牌理念或美學打動", "參考大量使用者的真實評價", "憑當下的心情與直覺衝動購物"]
+                q: "進入快速動眼期（REM）前，您大腦最後一個運作的背景程式通常是？",
+                options: ["瘋狂反省今天白天說錯的某句話", "幻想自己中樂透頭獎後的理財規劃", "認真思考明天早上要吃什麼", "大腦當機，通常躺下 3 秒內直接入睡"]
             },
             {
                 q: "【深層肌肉記憶測試】根據神經末梢與大腦皮層的反射連結，請問您上完大號後，通常的清潔方式是？",
                 options: ["慣用「左手」拿衛生紙擦拭", "慣用「右手」拿衛生紙擦拭", "堅持使用免治馬桶，用水柱狂沖", "崇尚大自然，甩一甩絕不擦拭"]
             },
             {
-                q: "【終極防禦機制測試】承上題，如果此時您發現廁所竟然「完全沒有衛生紙」，您當下會？",
-                options: ["果斷犧牲當天穿著的內褲", "坐在馬桶上冷靜思考人生的意義", "大聲呼救或叫外送員送衛生紙來", "發現這測驗根本在亂搞我！！！"]
+                q: "【終極防禦機制測試】承上題，若在排泄完畢後，視覺神經接收到「衛生紙存量為零」的災難性訊號，您的危機處理 SOP 是？",
+                options: ["果斷犧牲當下穿著的貼身衣物（如襪子）", "進入禪定狀態，等待有緣人進入廁所救援", "運用大腿肌肉發力，半蹲平移至洗手台", "重新定義清潔的標準，提褲走人"]
             }
         ];
 
-        let currentIndex = 0;
+        let currIdx = 0;
 
-        function renderQuestion() {
-            const qData = questions[currentIndex];
-            document.getElementById('q-number').innerText = `Q${currentIndex + 1}`;
-            document.getElementById('progress-fill').style.width = `${((currentIndex) / questions.length) * 100}%`;
+        function renderQ() {
+            const q = questions[currIdx];
+            document.getElementById('q-num').innerText = `Q${currIdx + 1}`;
+            document.getElementById('p-fill').style.width = `${((currIdx) / questions.length) * 100}%`;
             
-            // 題目淡入效果
-            const qText = document.getElementById('question-text');
+            const qText = document.getElementById('q-text');
             qText.style.opacity = 0;
-            setTimeout(() => {
-                qText.innerText = qData.q;
-                qText.style.opacity = 1;
-            }, 200);
+            setTimeout(() => { qText.innerText = q.q; qText.style.opacity = 1; }, 150);
 
-            const optionsContainer = document.getElementById('options-container');
-            optionsContainer.innerHTML = "";
-            
-            qData.options.forEach((opt, index) => {
+            const optBox = document.getElementById('opt-container');
+            optBox.innerHTML = "";
+            q.options.forEach(opt => {
                 const btn = document.createElement('button');
-                btn.className = 'option-btn';
-                btn.innerText = opt;
-                btn.onclick = () => handleAnswer();
-                optionsContainer.appendChild(btn);
+                btn.className = 'option-btn'; btn.innerText = opt;
+                btn.onclick = () => nextQ();
+                optBox.appendChild(btn);
             });
         }
 
-        function handleAnswer() {
-            currentIndex++;
-            if (currentIndex < questions.length) {
-                renderQuestion();
-            } else {
-                showLoading();
-            }
+        function nextQ() {
+            currIdx++;
+            if (currIdx < questions.length) renderQ();
+            else showLoading();
         }
 
         function showLoading() {
             document.getElementById('quiz-section').style.display = 'none';
-            const loadingSec = document.getElementById('loading-section');
-            loadingSec.style.display = 'block';
+            document.getElementById('loading-section').style.display = 'block';
 
-            // 假裝分析中的文字變化
-            const texts = ["正在讀取深層防禦機制...", "比對大號清潔習慣的大數據...", "抓到特異樣本！正在生成結果..."];
-            let tIdx = 0;
-            const textInterval = setInterval(() => {
-                if(tIdx < texts.length) {
-                    document.getElementById('loading-text').innerText = texts[tIdx];
-                    tIdx++;
-                }
-            }, 1000);
+            const msgs = ["正在量化您的行為決策模組...", "交叉比對極端情境的肌肉反射數據...", "發現罕見數值！正在生成最終報告..."];
+            let mIdx = 0;
+            const msgTimer = setInterval(() => {
+                if(mIdx < msgs.length) { document.getElementById('loading-msg').innerText = msgs[mIdx]; mIdx++; }
+            }, 1200);
 
-            // 3.5秒後顯示最終結果
             setTimeout(() => {
-                clearInterval(textInterval);
-                loadingSec.style.display = 'none';
-                document.getElementById('result-section').style.display = 'block';
-                // 放點小彩帶特效 (背景變色)
-                document.body.style.backgroundColor = "#ffeaa7";
-            }, 3500);
+                clearInterval(msgTimer);
+                document.getElementById('loading-section').style.display = 'none';
+                document.getElementById('fake-result-section').style.display = 'block';
+            }, 4000);
         }
 
-        // 初始化第一題
-        renderQuestion();
-    </script>
+        function showSurprise() {
+            document.getElementById('fake-result-section').style.display = 'none';
+            document.getElementById('real-surprise-section').style.display = 'block';
+            // 慶祝背景
+            document.body.style.background = "linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%)";
+        }
 
+        renderQ();
+    </script>
 </body>
 </html>
