@@ -3,171 +3,267 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 潛意識與靈魂特質測驗</title>
+    <title>2026 認知行為與深層人格分析系統 (CB-DPAS)</title>
     <style>
         body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: #f7f9fc;
-            color: #333;
-            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #1c1e21;
             margin: 0;
             padding: 0;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
-        .container {
-            width: 90%;
-            max-width: 600px;
+        .app-container {
+            width: 100%;
+            max-width: 700px;
             background: white;
-            margin: 40px auto;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            padding: 40px;
+            box-sizing: border-box;
+            position: relative;
         }
-        h1 {
-            text-align: center;
-            color: #2c3e50;
+        /* 頂部進度條 */
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            font-size: 0.9em;
+            color: #888;
+            font-weight: bold;
         }
-        .question {
-            margin-bottom: 25px;
+        .progress-bar-bg {
+            flex-grow: 1;
+            height: 6px;
+            background-color: #e4e6eb;
+            margin: 0 15px;
+            border-radius: 3px;
+            overflow: hidden;
         }
-        .question h3 {
+        .progress-bar-fill {
+            height: 100%;
+            background-color: #0064e0;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+        /* 題目區塊 */
+        .question-text {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-bottom: 30px;
+            line-height: 1.4;
+            color: #1c1e21;
+        }
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option-btn {
+            background-color: #f7f8fa;
+            border: 2px solid #e4e6eb;
+            border-radius: 12px;
+            padding: 16px 20px;
             font-size: 1.1em;
-            color: #34495e;
-            margin-bottom: 10px;
-        }
-        select {
-            width: 100%;
-            padding: 10px;
-            font-size: 1em;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            width: 100%;
-            padding: 15px;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.2em;
+            text-align: left;
             cursor: pointer;
-            margin-top: 20px;
-            transition: background 0.3s;
+            transition: all 0.2s;
+            color: #333;
         }
-        button:hover {
-            background-color: #2980b9;
+        .option-btn:hover {
+            background-color: #ebedf0;
+            border-color: #ccd0d5;
+            transform: translateY(-2px);
         }
-        /* 結果頁面隱藏 */
-        #result-section, #surprise-section {
+        /* 假加載畫面 */
+        #loading-section {
             display: none;
             text-align: center;
+            padding: 50px 0;
         }
-        /* 製造滾動空間 */
-        .spacer {
-            height: 80vh; /* 故意留白，讓她必須一直往下滑 */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #aaa;
-            font-style: italic;
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #0064e0;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px auto;
         }
-        .ugly-photo-container {
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        /* 最終結果與醜照區 */
+        #result-section {
+            display: none;
+            text-align: center;
+            animation: fadeIn 1s;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .ugly-photo {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 15px;
             margin: 20px 0;
+            border: 8px solid #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-        .ugly-photo-container img {
-            max-width: 100%;
-            border-radius: 10px;
-            border: 5px solid #eee;
-        }
-        .caption {
-            font-weight: bold;
-            font-size: 1.2em;
+        .birthday-title {
+            font-size: 2.5em;
             color: #e74c3c;
-            margin: 15px 0;
-        }
-        .surprise-text {
-            font-size: 3em;
-            color: #e74c3c;
-            font-weight: bold;
-            margin-top: 30px;
-            animation: popIn 0.5s ease-out;
-        }
-        @keyframes popIn {
-            0% { transform: scale(0); opacity: 0; }
-            80% { transform: scale(1.1); opacity: 1; }
-            100% { transform: scale(1); }
+            margin: 10px 0;
         }
     </style>
 </head>
 <body>
 
-    <div class="container" id="quiz-section">
-        <h1>🔮 2026 潛意識與靈魂特質測驗</h1>
-        <p style="text-align: center; color: #7f8c8d;">透過 10 個直覺問答，精準分析你的深層人格與隱藏天賦。</p>
+    <div class="app-container">
         
-        <div id="questions-form">
-            <div class="question"><h3>1. 憑直覺選一種天氣？</h3><select><option>晴空萬里</option><option>陰雨綿綿</option><option>狂風暴雨</option><option>舒適微風</option></select></div>
-            <div class="question"><h3>2. 朋友不小心在你面前跌倒，你的第一反應是？</h3><select><option>馬上扶他起來</option><option>先大笑三聲</option><option>趕快拿手機拍照</option><option>裝作沒看到</option></select></div>
-            <div class="question"><h3>3. 去台中玩，第一步通常是？</h3><select><option>吃屋馬燒肉</option><option>買太陽餅</option><option>去勤美綠園道</option><option>塞在台灣大道上</option></select></div>
-            <div class="question"><h3>4. 遇到不熟的人找你搭話，你會？</h3><select><option>熱情回應</option><option>尷尬微笑</option><option>假裝在忙</option><option>直接句點他</option></select></div>
-            <div class="question"><h3>5. 晚餐不知道吃什麼的時候，你會？</h3><select><option>隨便吃</option><option>猶豫一個小時</option><option>吃超商</option><option>叫外送</option></select></div>
-            <div class="question"><h3>6. 如果可以擁有超能力，你想選？</h3><select><option>隱形</option><option>瞬間移動</option><option>讀心術</option><option>怎麼吃都不會胖</option></select></div>
-            <div class="question"><h3>7. 買飲料的時候，你最常點？</h3><select><option>無糖微冰</option><option>全糖去冰</option><option>珍珠奶茶</option><option>看心情亂點</option></select></div>
-            <div class="question"><h3>8. 看到好笑的迷因圖，你會？</h3><select><option>自己對著螢幕傻笑</option><option>立刻轉發給朋友</option><option>默默存起來</option><option>看過就忘</option></select></div>
-            <div class="question"><h3>9. 放假待在家，你通常都在？</h3><select><option>狂睡猛睡</option><option>無止盡追劇</option><option>大掃除</option><option>思考人生意義</option></select></div>
-            <div class="question"><h3>10. 你覺得自己真實的心智年齡大約是？</h3><select><option>5歲</option><option>18歲</option><option>30歲</option><option>80歲</option></select></div>
+        <div id="quiz-section">
+            <div class="progress-header">
+                <span id="q-number">Q1</span>
+                <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-fill"></div></div>
+                <span id="q-total">/ 10</span>
+            </div>
             
-            <button onclick="showAnalysis()">查看測驗結果</button>
-        </div>
-    </div>
-
-    <div class="container" id="result-section">
-        <h1>📊 系統分析完成</h1>
-        <h2 style="color: #2980b9;">你的靈魂型態：【稀有變色龍型】</h2>
-        <div style="text-align: left; padding: 0 15px;">
-            <p>根據數據交叉比對，你的內心世界極度豐富且充滿矛盾。你外表看起來可能隨和、好相處，但內心其實有著非常堅定的原則與無數的「內心戲」。</p>
-            <p>在朋友眼中，你是一個極具反差萌的人。上有時候有點毒舌，但那其實是你表達關心的方式；你對身邊的人觀察入微，總是能察覺到別人忽略的細節。</p>
-            <p>你的直覺非常敏銳，常常能一眼看穿事情的本質。在面對挑戰時，你擁有一種「雖然覺得很麻煩，但還是會把它做好」的神秘責任感。整體來說，你是一個集幽默、慵懶與智慧於一身的獨特存在。</p>
-        </div>
-        
-        <div class="spacer">(請繼續往下滑查看靈魂具象化結果...)</div>
-
-        <div class="ugly-photo-container">
-            <p class="caption">通常這樣特質的人，會長這個樣子 👇</p>
-            <img id="ugly-img" src="funny-pic.jpg" alt="專屬特質照">
+            <div class="question-text" id="question-text">載入中...</div>
+            <div class="options-grid" id="options-container">
+                </div>
         </div>
 
-        <button id="more-btn" onclick="triggerSurprise()">點擊看更多...</button>
-    </div>
+        <div id="loading-section">
+            <div class="spinner"></div>
+            <h2 style="color: #0064e0;">CB-DPAS 系統分析中...</h2>
+            <p style="color: #666;" id="loading-text">正在交叉比對神經突觸與行為數據庫...</p>
+        </div>
 
-    <div class="container" id="surprise-section" style="background: transparent; box-shadow: none;">
-        <div class="surprise-text">儒馨，生日快樂~ 🎂🎉</div>
-        <p style="font-size: 1.2em; color: #555; margin-top: 20px;">
-            好啦不鬧了！<br>
-            祝遠在台中的妳，新的一年一切順心！<br>
-            （記得把醜照存起來當傳家寶）
-        </p>
+        <div id="result-section">
+            <h2 style="color: #333;">分析完成：發現特異樣本！</h2>
+            <p style="font-size: 1.1em; color: #555;">根據您最後兩題的防禦機制反應，系統判定您的真實身份為：</p>
+            
+            <img class="ugly-photo" src="funny-pic.jpg" alt="專屬特質照">
+            
+            <h1 class="birthday-title">🎉 儒馨，生日快樂！ 🎉</h1>
+            <p style="font-size: 1.2em; color: #666; margin-top: 15px;">
+                好啦不鬧了！前面八題我掰得超辛苦的好嗎😂<br>
+                祝遠在台中的妳，新的一年一切順心、每天開心！
+            </p>
+        </div>
+
     </div>
 
     <script>
-        function showAnalysis() {
-            // 隱藏問題區，顯示結果區
-            document.getElementById('quiz-section').style.display = 'none';
-            document.getElementById('result-section').style.display = 'block';
-            // 自動滾動到頂部，讓她慢慢看文字
-            window.scrollTo(0, 0);
+        // 題庫設定：1-8題嚴肅，9-10題歪掉
+        const questions = [
+            {
+                q: "在面對突如其來的壓力環境時，您的首要認知反應通常是？",
+                options: ["快速重組現有資訊，進行邏輯分析", "尋求外部情感支持與共鳴", "先壓抑情緒，待環境安全後釋放", "啟動迴避機制，暫時轉移注意力"]
+            },
+            {
+                q: "當您在群體決策中遇到價值觀衝突，您傾向採取的行為模式為？",
+                options: ["堅持客觀數據，試圖說服多數", "擔任協調者，尋求雙贏的折衷方案", "表面順從，但內心保留獨立判斷", "重新審視自身盲點，接受不同觀點"]
+            },
+            {
+                q: "關於處理高度複雜的抽象問題，您的大腦更習慣依賴？",
+                options: ["過去成功經驗的具象化投射", "瞬間的直覺與發散性思考", "嚴謹的歸納與演繹邏輯", "權威學術或專家理論的框架"]
+            },
+            {
+                q: "在心理學的「能量恢復模型」中，您認為哪種情境最能補充您的認知能量？",
+                options: ["深度獨處，關閉所有社交訊號", "與少數高頻率共振的知己深度對話", "進入充滿未知與新刺激的社交場合", "進入心流狀態，專注於特定嗜好"]
+            },
+            {
+                q: "評估一個人的可信度與人格特質時，您潛意識最看重的指標是？",
+                options: ["對方在壓力下的下意識行為", "溝通時的微表情與肢體語言", "他人對其累積的綜合評價", "其表達邏輯的嚴密與一致性"]
+            },
+            {
+                q: "面對未來的不確定性，您的防禦機制通常表現為？",
+                options: ["制定極度詳細的防禦性計畫", "設定模糊大方向，保留高彈性", "秉持宿命論，順應環境變化", "透過積極的心理暗示降低焦慮"]
+            },
+            {
+                q: "當接觸到一項顛覆您既有認知的科學理論時，您需要什麼條件才會接受？",
+                options: ["看到嚴謹的雙盲實驗與量化數據", "理論能在現實生活中被具體驗證", "推演過程完美符合您自身的邏輯", "有頂尖學術機構或指標性人物背書"]
+            },
+            {
+                q: "根據大腦前額葉皮質的決策偏好，您在進行重要消費時通常是？",
+                options: ["徹底研究所有規格與性價比", "被產品的品牌理念或美學打動", "參考大量使用者的真實評價", "憑當下的心情與直覺衝動購物"]
+            },
+            {
+                q: "【深層肌肉記憶測試】根據神經末梢與大腦皮層的反射連結，請問您上完大號後，通常的清潔方式是？",
+                options: ["慣用「左手」拿衛生紙擦拭", "慣用「右手」拿衛生紙擦拭", "堅持使用免治馬桶，用水柱狂沖", "崇尚大自然，甩一甩絕不擦拭"]
+            },
+            {
+                q: "【終極防禦機制測試】承上題，如果此時您發現廁所竟然「完全沒有衛生紙」，您當下會？",
+                options: ["果斷犧牲當天穿著的內褲", "坐在馬桶上冷靜思考人生的意義", "大聲呼救或叫外送員送衛生紙來", "發現這測驗根本在亂搞我！！！"]
+            }
+        ];
+
+        let currentIndex = 0;
+
+        function renderQuestion() {
+            const qData = questions[currentIndex];
+            document.getElementById('q-number').innerText = `Q${currentIndex + 1}`;
+            document.getElementById('progress-fill').style.width = `${((currentIndex) / questions.length) * 100}%`;
+            
+            // 題目淡入效果
+            const qText = document.getElementById('question-text');
+            qText.style.opacity = 0;
+            setTimeout(() => {
+                qText.innerText = qData.q;
+                qText.style.opacity = 1;
+            }, 200);
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = "";
+            
+            qData.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerText = opt;
+                btn.onclick = () => handleAnswer();
+                optionsContainer.appendChild(btn);
+            });
         }
 
-        function triggerSurprise() {
-            // 隱藏醜照和按鈕，跳出生日祝福
-            document.getElementById('result-section').style.display = 'none';
-            document.getElementById('surprise-section').style.display = 'block';
-            
-            // 可以加點彩帶特效（這裡用簡單的網頁背景變色替代）
-            document.body.style.backgroundColor = "#ffeaa7";
+        function handleAnswer() {
+            currentIndex++;
+            if (currentIndex < questions.length) {
+                renderQuestion();
+            } else {
+                showLoading();
+            }
         }
+
+        function showLoading() {
+            document.getElementById('quiz-section').style.display = 'none';
+            const loadingSec = document.getElementById('loading-section');
+            loadingSec.style.display = 'block';
+
+            // 假裝分析中的文字變化
+            const texts = ["正在讀取深層防禦機制...", "比對大號清潔習慣的大數據...", "抓到特異樣本！正在生成結果..."];
+            let tIdx = 0;
+            const textInterval = setInterval(() => {
+                if(tIdx < texts.length) {
+                    document.getElementById('loading-text').innerText = texts[tIdx];
+                    tIdx++;
+                }
+            }, 1000);
+
+            // 3.5秒後顯示最終結果
+            setTimeout(() => {
+                clearInterval(textInterval);
+                loadingSec.style.display = 'none';
+                document.getElementById('result-section').style.display = 'block';
+                // 放點小彩帶特效 (背景變色)
+                document.body.style.backgroundColor = "#ffeaa7";
+            }, 3500);
+        }
+
+        // 初始化第一題
+        renderQuestion();
     </script>
 
 </body>
