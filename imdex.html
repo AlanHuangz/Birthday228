@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 潛意識與靈魂特質測驗</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f7f9fc;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background: white;
+            margin: 40px auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .question {
+            margin-bottom: 25px;
+        }
+        .question h3 {
+            font-size: 1.1em;
+            color: #34495e;
+            margin-bottom: 10px;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        /* 結果頁面隱藏 */
+        #result-section, #surprise-section {
+            display: none;
+            text-align: center;
+        }
+        /* 製造滾動空間 */
+        .spacer {
+            height: 80vh; /* 故意留白，讓她必須一直往下滑 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-style: italic;
+        }
+        .ugly-photo-container {
+            margin: 20px 0;
+        }
+        .ugly-photo-container img {
+            max-width: 100%;
+            border-radius: 10px;
+            border: 5px solid #eee;
+        }
+        .caption {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #e74c3c;
+            margin: 15px 0;
+        }
+        .surprise-text {
+            font-size: 3em;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-top: 30px;
+            animation: popIn 0.5s ease-out;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            80% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="quiz-section">
+        <h1>🔮 2026 潛意識與靈魂特質測驗</h1>
+        <p style="text-align: center; color: #7f8c8d;">透過 10 個直覺問答，精準分析你的深層人格與隱藏天賦。</p>
+        
+        <div id="questions-form">
+            <div class="question"><h3>1. 憑直覺選一種天氣？</h3><select><option>晴空萬里</option><option>陰雨綿綿</option><option>狂風暴雨</option><option>舒適微風</option></select></div>
+            <div class="question"><h3>2. 朋友不小心在你面前跌倒，你的第一反應是？</h3><select><option>馬上扶他起來</option><option>先大笑三聲</option><option>趕快拿手機拍照</option><option>裝作沒看到</option></select></div>
+            <div class="question"><h3>3. 去台中玩，第一步通常是？</h3><select><option>吃屋馬燒肉</option><option>買太陽餅</option><option>去勤美綠園道</option><option>塞在台灣大道上</option></select></div>
+            <div class="question"><h3>4. 遇到不熟的人找你搭話，你會？</h3><select><option>熱情回應</option><option>尷尬微笑</option><option>假裝在忙</option><option>直接句點他</option></select></div>
+            <div class="question"><h3>5. 晚餐不知道吃什麼的時候，你會？</h3><select><option>隨便吃</option><option>猶豫一個小時</option><option>吃超商</option><option>叫外送</option></select></div>
+            <div class="question"><h3>6. 如果可以擁有超能力，你想選？</h3><select><option>隱形</option><option>瞬間移動</option><option>讀心術</option><option>怎麼吃都不會胖</option></select></div>
+            <div class="question"><h3>7. 買飲料的時候，你最常點？</h3><select><option>無糖微冰</option><option>全糖去冰</option><option>珍珠奶茶</option><option>看心情亂點</option></select></div>
+            <div class="question"><h3>8. 看到好笑的迷因圖，你會？</h3><select><option>自己對著螢幕傻笑</option><option>立刻轉發給朋友</option><option>默默存起來</option><option>看過就忘</option></select></div>
+            <div class="question"><h3>9. 放假待在家，你通常都在？</h3><select><option>狂睡猛睡</option><option>無止盡追劇</option><option>大掃除</option><option>思考人生意義</option></select></div>
+            <div class="question"><h3>10. 你覺得自己真實的心智年齡大約是？</h3><select><option>5歲</option><option>18歲</option><option>30歲</option><option>80歲</option></select></div>
+            
+            <button onclick="showAnalysis()">查看測驗結果</button>
+        </div>
+    </div>
+
+    <div class="container" id="result-section">
+        <h1>📊 系統分析完成</h1>
+        <h2 style="color: #2980b9;">你的靈魂型態：【稀有變色龍型】</h2>
+        <div style="text-align: left; padding: 0 15px;">
+            <p>根據數據交叉比對，你的內心世界極度豐富且充滿矛盾。你外表看起來可能隨和、好相處，但內心其實有著非常堅定的原則與無數的「內心戲」。</p>
+            <p>在朋友眼中，你是一個極具反差萌的人。上有時候有點毒舌，但那其實是你表達關心的方式；你對身邊的人觀察入微，總是能察覺到別人忽略的細節。</p>
+            <p>你的直覺非常敏銳，常常能一眼看穿事情的本質。在面對挑戰時，你擁有一種「雖然覺得很麻煩，但還是會把它做好」的神秘責任感。整體來說，你是一個集幽默、慵懶與智慧於一身的獨特存在。</p>
+        </div>
+        
+        <div class="spacer">(請繼續往下滑查看靈魂具象化結果...)</div>
+
+        <div class="ugly-photo-container">
+            <p class="caption">通常這樣特質的人，會長這個樣子 👇</p>
+            <img id="ugly-img" src="https://via.placeholder.com/400x400?text=請把這裡換成醜照.jpg" alt="專屬特質照">
+        </div>
+
+        <button id="more-btn" onclick="triggerSurprise()">點擊看更多...</button>
+    </div>
+
+    <div class="container" id="surprise-section" style="background: transparent; box-shadow: none;">
+        <div class="surprise-text">儒馨，生日快樂~ 🎂🎉</div>
+        <p style="font-size: 1.2em; color: #555; margin-top: 20px;">
+            好啦不鬧了！<br>
+            祝遠在台中的妳，新的一年一切順心！<br>
+            （記得把醜照存起來當傳家寶）
+        </p>
+    </div>
+
+    <script>
+        function showAnalysis() {
+            // 隱藏問題區，顯示結果區
+            document.getElementById('quiz-section').style.display = 'none';
+            document.getElementById('result-section').style.display = 'block';
+            // 自動滾動到頂部，讓她慢慢看文字
+            window.scrollTo(0, 0);
+        }
+
+        function triggerSurprise() {
+            // 隱藏醜照和按鈕，跳出生日祝福
+            document.getElementById('result-section').style.display = 'none';
+            document.getElementById('surprise-section').style.display = 'block';
+            
+            // 可以加點彩帶特效（這裡用簡單的網頁背景變色替代）
+            document.body.style.backgroundColor = "#ffeaa7";
+        }
+    </script>
+
+</body>
+</html>
