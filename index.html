@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 大腦微反應與潛意識行為分析</title>
+    <title>2026 幼兒發展與親職教養心理評測 (ECP-Assessment)</title>
     <style>
-        /* 質感漸層背景與基礎設定 */
+        /* 基礎與背景設定：改為更專業、溫和的學術藍綠色調 */
         body {
             font-family: 'PingFang TC', 'Helvetica Neue', sans-serif;
-            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             color: #333;
             margin: 0;
             padding: 20px;
@@ -19,122 +19,148 @@
             overflow-x: hidden;
         }
         .card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 24px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
             width: 100%;
-            max-width: 600px;
-            padding: 40px 30px;
+            max-width: 650px;
+            padding: 40px 35px;
             box-sizing: border-box;
             position: relative;
-            animation: slideUp 0.6s ease-out;
-        }
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
         }
         
-        /* 進度條設計 */
-        .progress-container {
+        /* 假權威標章 (右下角) */
+        .authority-badge {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #e2e8f0;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.75em;
+            color: #4a5568;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             display: flex;
             align-items: center;
-            margin-bottom: 30px;
-            font-size: 0.9em;
-            color: #666;
-            font-weight: bold;
+            gap: 8px;
+            z-index: 100;
+        }
+        .authority-badge img {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* 歡迎首頁區塊 */
+        #intro-section {
+            text-align: center;
+            animation: fadeIn 0.8s;
+        }
+        .intro-title {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        .intro-desc {
+            color: #64748b;
+            font-size: 1.05em;
+            line-height: 1.7;
+            margin-bottom: 35px;
+            text-align: justify;
+        }
+        
+        /* 按鈕共用樣式 */
+        .primary-btn {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white; border: none; border-radius: 30px;
+            padding: 16px 35px; font-size: 1.2em; font-weight: bold;
+            cursor: pointer; width: 100%; max-width: 300px;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+            transition: all 0.3s;
+        }
+        .primary-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4); }
+
+        /* 測驗區塊隱藏設定 */
+        #quiz-section, #loading-section, #fake-result-section, #real-surprise-section {
+            display: none;
+        }
+
+        /* 進度條設計 */
+        .progress-container {
+            display: flex; align-items: center; margin-bottom: 30px; font-size: 0.9em; color: #7f8c8d; font-weight: bold;
         }
         .progress-bar {
-            flex-grow: 1;
-            height: 8px;
-            background-color: #eee;
-            margin: 0 15px;
-            border-radius: 4px;
-            overflow: hidden;
+            flex-grow: 1; height: 6px; background-color: #ecf0f1; margin: 0 15px; border-radius: 3px; overflow: hidden;
         }
         .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-            width: 0%;
-            transition: width 0.4s ease;
+            height: 100%; background: #3498db; width: 0%; transition: width 0.4s ease;
         }
 
         /* 題目與選項 */
         .question-text {
-            font-size: 1.4em;
-            font-weight: 600;
-            margin-bottom: 25px;
-            line-height: 1.5;
-            color: #2d3748;
+            font-size: 1.35em; font-weight: 600; margin-bottom: 25px; line-height: 1.5; color: #2c3e50;
         }
-        .options-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
+        .options-grid { display: flex; flex-direction: column; gap: 12px; }
         .option-btn {
-            background-color: #fff;
-            border: 2px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 18px 20px;
-            font-size: 1.1em;
-            text-align: left;
-            cursor: pointer;
-            transition: all 0.2s;
-            color: #4a5568;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            background-color: #fff; border: 2px solid #eaeded; border-radius: 12px;
+            padding: 16px 20px; font-size: 1.05em; text-align: left; cursor: pointer;
+            transition: all 0.2s; color: #34495e; line-height: 1.4;
         }
-        .option-btn:hover {
-            border-color: #a0aec0;
-            background-color: #f7fafc;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
+        .option-btn:hover { border-color: #bdc3c7; background-color: #f8f9f9; transform: translateY(-2px); }
 
         /* 載入畫面 */
-        #loading-section { display: none; text-align: center; padding: 40px 0; }
+        #loading-section { text-align: center; padding: 50px 0; }
         .spinner {
-            width: 60px; height: 60px;
-            border: 6px solid #f3f3f3;
-            border-top: 6px solid #764ba2;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 25px auto;
+            width: 50px; height: 50px; border: 5px solid #f3f3f3; border-top: 5px solid #3498db;
+            border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px auto;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* 假結果與驚喜畫面 */
-        #fake-result-section, #real-surprise-section {
-            display: none;
-            text-align: center;
-            animation: fadeIn 0.8s;
-        }
+        /* 結果與驚喜 */
+        #fake-result-section, #real-surprise-section { text-align: center; animation: fadeIn 0.8s; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         
-        .result-title { color: #4a5568; font-size: 1.8em; margin-bottom: 15px; }
-        .result-text { text-align: left; line-height: 1.8; color: #4a5568; font-size: 1.1em; margin-bottom: 30px; }
+        .result-title { color: #2c3e50; font-size: 1.7em; margin-bottom: 20px; }
+        .result-text { text-align: justify; line-height: 1.8; color: #555; font-size: 1.05em; margin-bottom: 35px; }
         
-        .action-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white; border: none; border-radius: 30px;
-            padding: 15px 30px; font-size: 1.2em; font-weight: bold;
-            cursor: pointer; width: 100%; box-shadow: 0 4px 15px rgba(118, 75, 162, 0.4);
-            transition: transform 0.2s;
-        }
-        .action-btn:hover { transform: scale(1.02); }
-
         .ugly-photo {
-            width: 100%; max-width: 350px;
-            border-radius: 20px; margin: 20px 0;
-            border: 6px solid #fff;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            width: 100%; max-width: 320px; border-radius: 15px; margin: 20px 0;
+            border: 8px solid #fff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);
         }
-        .bday-text { font-size: 2.5em; color: #d63031; font-weight: bold; margin: 15px 0; }
+        /* 確保生日字體不會斷行 */
+        .bday-text { 
+            font-size: 2.2em; 
+            color: #e74c3c; 
+            font-weight: bold; 
+            margin: 15px 0; 
+            white-space: nowrap; 
+        }
     </style>
 </head>
 <body>
 
+    <div class="authority-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#2980b9" stroke-width="2" style="width:18px; height:18px;">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+        <div>
+            <strong>APA 美國心理學會</strong><br>
+            2026 發展心理學認證指標
+        </div>
+    </div>
+
     <div class="card">
         
+        <div id="intro-section">
+            <h1 class="intro-title">2026 幼兒發展與親職教養<br>心理深度評測</h1>
+            <p class="intro-desc">
+                本測驗基於皮亞傑（Piaget）認知發展理論與當代神經教育學大數據整合而成。透過 10 個情境式的直覺問答，系統將精準剖析您的「深層教養潛意識」與「親職壓力耐受模型」。<br><br>
+                請在不假思索的情況下，選擇最符合您直覺反應的選項，以確保常模數據的準確性。
+            </p>
+            <button class="primary-btn" onclick="startQuiz()">開始進入評測</button>
+        </div>
+
         <div id="quiz-section">
             <div class="progress-container">
                 <span id="q-num">Q1</span>
@@ -147,28 +173,28 @@
 
         <div id="loading-section">
             <div class="spinner"></div>
-            <h2 style="color: #4a5568;">系統演算中...</h2>
-            <p style="color: #718096; font-size: 1.1em;" id="loading-msg">正在量化您的行為決策模組...</p>
+            <h2 style="color: #2c3e50;">系統演算中...</h2>
+            <p style="color: #7f8c8d; font-size: 1.05em;" id="loading-msg">正在量化您的教養防禦機制...</p>
         </div>
 
         <div id="fake-result-section">
-            <h2 class="result-title">📊 綜合行為分析報告</h2>
-            <h3 style="color: #764ba2; margin-top: -10px;">您的潛意識型態：【非典型變異個體】</h3>
+            <h2 class="result-title">📊 綜合教養分析報告</h2>
+            <h3 style="color: #2980b9; margin-top: -10px;">您的親職型態：【非典型韌性引導者】</h3>
             <div class="result-text">
-                <p>根據數據交叉比對，特別是最後兩項「極端情境下的肌肉反射」指標，系統發現您的決策模式打破了常規的心理學框架。</p>
-                <p>您外表看似隨和、適應力強，但在面臨突發危機（例如衛生紙匱乏的絕境）時，您的大腦能瞬間切換至高階生存模式，展現出驚人的情緒控管與韌性。</p>
-                <p>此類基因型態在系統資料庫中僅佔 <strong>0.03%</strong>。系統已根據您的特質，生成了您專屬的「深層靈魂具象化圖像」。</p>
+                <p>根據數據交叉比對，特別是最後兩項「極端壓力下的神經反射」指標，系統發現您的教養模式打破了傳統亞洲家長的焦慮框架。</p>
+                <p>您具備極高的情緒容忍度。在面對幼兒無預警的情緒崩潰，或是自身的物理性疼痛（如踩到尖銳玩具）時，您的大腦邊緣系統能瞬間啟動高階的自我調節機制，展現出驚人的黑色幽默與韌性。</p>
+                <p>此類親職型態在系統資料庫中極為罕見。系統已根據您的測驗數值，生成了您專屬的「深層靈魂具象化圖像」。</p>
             </div>
-            <button class="action-btn" onclick="showSurprise()">點擊解鎖深層特質圖像 👇</button>
+            <button class="primary-btn" style="max-width: 100%;" onclick="showSurprise()">點擊解鎖深層特質圖像 👇</button>
         </div>
 
         <div id="real-surprise-section">
-            <p style="font-size: 1.3em; color: #d63031; font-weight: bold; margin-bottom: 5px;">通常擁有這種特質的人，長這樣：</p>
+            <p style="font-size: 1.2em; color: #2c3e50; font-weight: bold; margin-bottom: 5px;">通常擁有這種強大特質的人，長這樣：</p>
             
             <img class="ugly-photo" src="funny-pic.jpg" alt="專屬特質照">
             
             <div class="bday-text">🎉 儒馨，生日快樂 🎉</div>
-            <p style="font-size: 1.1em; color: #4a5568; line-height: 1.6;">
+            <p style="font-size: 1.1em; color: #555; line-height: 1.6;">
                 好啦不鬧了！前面八題我掰得超辛苦的好嗎 😂<br>
                 祝遠在台中的妳，新的一年一切順心、每天開心！<br>
                 （這張極度稀有的照片記得好好珍藏）
@@ -178,50 +204,57 @@
     </div>
 
     <script>
+        // 題庫設定：1-8題學術育兒，9-10題一本正經的幹話
         const questions = [
             {
-                q: "當早晨鬧鐘響起時，您的第一波腦內啡分泌通常伴隨什麼行為？",
-                options: ["瞬間彈起，立刻開始運作", "閉著眼睛摸索，精準按下貪睡按鈕", "躺在床上懷疑人生至少五分鐘", "其實在鬧鐘響之前就已經醒了"]
+                q: "當幼兒在公共場域引發高強度的情緒崩潰（Tantrum）時，您首選的介入策略是？",
+                options: ["尋找安靜角落進行物理隔離與冷靜", "蹲下進行情緒同理與鏡像反射", "運用替代性刺激（如玩具、點心）轉移注意力", "保持靜默以避免產生不當的行為增強"]
             },
             {
-                q: "在面對「午餐吃什麼」的決策矩陣時，您的大腦運算模式偏向？",
-                options: ["大腦不思考，迅速鎖定最常吃的店家", "陷入漫長的多變數評估（俗稱選擇障礙）", "放棄運算，直接盲從同事或朋友的決定", "交給外送平台的演算法推薦"]
+                q: "關於幼兒在遊戲中進行「高風險/非結構化探索」（如攀爬高處），您的風險容忍閾值與應對為？",
+                options: ["預先排除所有潛在危險因子，確保絕對安全", "在一旁待命，允許有限度的試錯與探索", "鼓勵其挑戰極限，培養挫折耐受力", "轉過頭假裝沒看到，以降低自身的教養焦慮"]
             },
             {
-                q: "進入超過10人的陌生社交力場時，您的能量消耗狀態是？",
-                options: ["快速充電，如魚得水般穿梭", "表面看似正常，但內心電量狂掉", "啟動省電模式，躲在角落默默觀察", "尋找最近的出口準備逃生"]
+                q: "面對幼童發展階段中必然出現的「防禦性虛構陳述」（說謊），您認為最佳的道德建構方式是？",
+                options: ["立即指正並給予相應的行為後果", "探討虛構陳述背後的心理需求與恐懼", "透過繪本或故事進行間接的道德引導", "視為認知能力提升的正常表現，順其自然"]
             },
             {
-                q: "當通訊軟體出現「未讀紅點」時，您的視覺神經反射為？",
-                options: ["強迫症發作，立刻點開消除紅點", "選擇性無視，未讀訊息累積到 999+", "只看通知預覽，假裝自己還沒看到", "早就關閉所有通知，與世無爭"]
+                q: "在處理幼童間的資源分配衝突（如搶奪玩具）時，您傾向扮演何種引導角色？",
+                options: ["擔任法官，仲裁誰對誰錯並強制分配", "擔任教練，引導雙方表達情緒並尋求共識", "採取計時輪流制，建立絕對公平的規則", "採取袖手旁觀策略，讓社會化過程自然發生"]
             },
             {
-                q: "在執行需要高度專注的任務時，您最常出現的「注意力漂移」路徑是？",
-                options: ["突然想滑一下手機（然後過了一小時）", "腦中開始自動循環播放某首洗腦神曲", "突然覺得桌面很亂，開始大掃除", "幾乎不會漂移，能輕易進入心流狀態"]
+                q: "針對幼兒的「正向行為增強（Praise）」，您習慣採用的心理學回饋路徑是？",
+                options: ["讚美其與生俱來的天賦（如：你好聰明）", "讚美其過程中的努力與策略（如：你很用心嘗試）", "給予實質的物質獎勵作為代幣增強", "僅給予微笑或擁抱等非語言回饋"]
             },
             {
-                q: "大腦海馬迴在提取「忘記密碼」的記憶時，您通常的應對機制是？",
-                options: ["試圖輸入所有自己常用的生日組合", "直接放棄思考，點擊「忘記密碼」重置", "翻找某本記載神秘代碼的實體小本本", "密碼全部設一模一樣，沒這個困擾"]
+                q: "當幼兒提出超出您知識儲備的「無窮盡追問（Why phase）」時，您的認知鷹架搭建策略是？",
+                options: ["立刻拿出手機搜尋最精確的科學解答", "反問「你覺得為什麼呢？」以刺激其發散性思考", "運用擬人化或童話式的語言進行包裝解釋", "誠實表達不知道，並邀請孩子一起尋找答案"]
             },
             {
-                q: "在網路購物的情緒波段中，哪一個時刻您的多巴胺分泌最旺盛？",
-                options: ["將商品加入購物車的那一瞬間", "收到「您的包裹已出貨」的通知時", "暴力拆開包裹紙箱的那一刻", "什麼都沒買，單純看別人花錢就很爽"]
+                q: "在數位原住民世代，您對幼兒「螢幕暴露時間（Screen Time）」的邊界管控原則是？",
+                options: ["嚴格遵守兒科醫學會建議，進行絕對的時間限制", "將螢幕視為電子保母，在需要喘息時作為交換條件", "強調內容的篩選，陪伴觀看並進行互動討論", "將螢幕時間與日常任務（如吃飯、收玩具）進行綁定"]
             },
             {
-                q: "進入快速動眼期（REM）前，您大腦最後一個運作的背景程式通常是？",
-                options: ["瘋狂反省今天白天說錯的某句話", "幻想自己中樂透頭獎後的理財規劃", "認真思考明天早上要吃什麼", "大腦當機，通常躺下 3 秒內直接入睡"]
+                q: "在皮亞傑（Piaget）的認知發展理論框架下，您認為學齡前階段最核心的學習載體應為？",
+                options: ["具備明確認知目標的結構化教材", "開放性且無既定規則的自由遊戲（Free Play）", "高度規律的日常生活作息與儀式感", "透過模仿主要照顧者的社交互動"]
             },
             {
-                q: "【深層肌肉記憶測試】根據神經末梢與大腦皮層的反射連結，請問您上完大號後，通常的清潔方式是？",
-                options: ["慣用「左手」拿衛生紙擦拭", "慣用「右手」拿衛生紙擦拭", "堅持使用免治馬桶，用水柱狂沖", "崇尚大自然，甩一甩絕不擦拭"]
+                q: "【深層親職壓力閾值測試】當親生子嗣在凌晨 3 點爆發持續性高頻率聲波（夜啼）時，您的原始生存反射通常是？",
+                options: ["瞬間彈起，立刻進入最高戰備安撫狀態", "啟動伴侶喚醒機制（把另一半踢下床去處理）", "閉眼裝睡，進行腦內自我催眠「這一切都是幻覺」", "認真懷疑當年為何不養一隻貓就好"]
             },
             {
-                q: "【終極防禦機制測試】承上題，若在排泄完畢後，視覺神經接收到「衛生紙存量為零」的災難性訊號，您的危機處理 SOP 是？",
-                options: ["果斷犧牲當下穿著的貼身衣物（如襪子）", "進入禪定狀態，等待有緣人進入廁所救援", "運用大腿肌肉發力，半蹲平移至洗手台", "重新定義清潔的標準，提褲走人"]
+                q: "【終極教養創傷症候群檢測】承上題，若在黑暗中安撫子嗣的移動過程中，您的足底神經瞬間遭受「樂高積木（Lego）」的穿刺型物理爆擊，您當下的反應是？",
+                options: ["強行吞下慘叫避免吵醒孩子，導致嚴重內傷", "運用腹式呼吸法，強制轉化想痛扁人的衝動", "在腦海中認真擬定將家中所有玩具丟進垃圾桶的合法計畫", "發現這根本不是正經的心理測驗！！！"]
             }
         ];
 
         let currIdx = 0;
+
+        function startQuiz() {
+            document.getElementById('intro-section').style.display = 'none';
+            document.getElementById('quiz-section').style.display = 'block';
+            renderQ();
+        }
 
         function renderQ() {
             const q = questions[currIdx];
@@ -252,17 +285,17 @@
             document.getElementById('quiz-section').style.display = 'none';
             document.getElementById('loading-section').style.display = 'block';
 
-            const msgs = ["正在量化您的行為決策模組...", "交叉比對極端情境的肌肉反射數據...", "發現罕見數值！正在生成最終報告..."];
+            const msgs = ["正在分析您的認知鷹架搭建模式...", "交叉比對深層教養壓力閾值...", "捕捉到極端情境的神經反射數據！", "正在生成最終權威報告..."];
             let mIdx = 0;
             const msgTimer = setInterval(() => {
                 if(mIdx < msgs.length) { document.getElementById('loading-msg').innerText = msgs[mIdx]; mIdx++; }
-            }, 1200);
+            }, 1000);
 
             setTimeout(() => {
                 clearInterval(msgTimer);
                 document.getElementById('loading-section').style.display = 'none';
                 document.getElementById('fake-result-section').style.display = 'block';
-            }, 4000);
+            }, 4500);
         }
 
         function showSurprise() {
@@ -270,9 +303,9 @@
             document.getElementById('real-surprise-section').style.display = 'block';
             // 慶祝背景
             document.body.style.background = "linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%)";
+            // 隱藏右下角的假標章
+            document.querySelector('.authority-badge').style.display = 'none';
         }
-
-        renderQ();
     </script>
 </body>
 </html>
