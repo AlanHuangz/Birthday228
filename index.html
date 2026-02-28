@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 幼兒發展與親職教養心理評測 (ECP-Assessment)</title>
+    <title>2026 近代親職教養學派與父母人格特質評測</title>
     <style>
-        /* 基礎與背景設定：專業、溫和的學術藍綠色調 */
+        /* 基礎與背景設定：高冷、專業的學術灰藍色調 */
         body {
-            font-family: 'PingFang TC', 'Helvetica Neue', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #eef2f3 0%, #8e9eab 100%);
             color: #333;
             margin: 0;
             padding: 15px;
@@ -18,54 +18,86 @@
             min-height: 100vh;
         }
         .card {
-            background: rgba(255, 255, 255, 0.98);
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            background: #ffffff;
+            border-radius: 12px;
+            /* 頂部加上一條知性的深藍色重點線 */
+            border-top: 6px solid #2c3e50; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
             width: 100%;
-            max-width: 600px;
-            padding: 35px 25px;
+            max-width: 650px;
+            padding: 40px 35px;
             box-sizing: border-box;
             position: relative;
         }
-        
-        /* 假權威標章 */
-        .authority-badge {
-            position: fixed;
-            bottom: 15px;
-            right: 15px;
-            background: rgba(255, 255, 255, 0.95);
-            border: 1px solid #e2e8f0;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 0.75em;
-            color: #4a5568;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+
+        /* 假學術機構 Header */
+        .academic-header {
             display: flex;
             align-items: center;
-            gap: 8px;
-            z-index: 100;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            color: #7f8c8d;
+            font-size: 0.9em;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
         }
-        .authority-badge img { width: 20px; height: 20px; }
+        .academic-header svg { width: 24px; height: 24px; }
 
         /* 歡迎首頁 */
         #intro-section { text-align: center; animation: fadeIn 0.8s; }
-        .intro-title { font-size: 1.6em; color: #2c3e50; margin-bottom: 20px; line-height: 1.4; font-weight: bold; }
-        .intro-desc { 
-            color: #555; font-size: 1.05em; line-height: 1.8; 
-            margin-bottom: 35px; text-align: left; /* 改為靠左對齊，閱讀更舒適 */
+        .intro-title { 
+            font-size: 1.7em; 
+            color: #2c3e50; 
+            margin-bottom: 10px; 
+            line-height: 1.4; 
+            font-weight: bold; 
         }
+        .intro-subtitle {
+            font-size: 1em;
+            color: #95a5a6;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+        
+        /* 假資料標籤 */
+        .meta-tags {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .meta-tag {
+            background: #f1f2f6;
+            color: #57606f;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+
+        .intro-desc { 
+            color: #444; 
+            font-size: 1.1em; 
+            line-height: 1.8; 
+            margin-bottom: 35px; 
+            text-align: justify; 
+        }
+        .intro-desc p { margin-bottom: 15px; }
         
         /* 按鈕 */
         .primary-btn {
-            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-            color: white; border: none; border-radius: 30px;
-            padding: 15px 30px; font-size: 1.15em; font-weight: bold;
-            cursor: pointer; width: 100%; max-width: 280px;
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+            background: #2c3e50;
+            color: white; border: none; border-radius: 8px;
+            padding: 16px 30px; font-size: 1.15em; font-weight: bold;
+            cursor: pointer; width: 100%; max-width: 320px;
+            box-shadow: 0 4px 15px rgba(44, 62, 80, 0.3);
             transition: all 0.3s;
             margin: 0 auto; display: block;
         }
-        .primary-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4); }
+        .primary-btn:hover { background: #34495e; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(44, 62, 80, 0.4); }
 
         /* 隱藏區塊 */
         #quiz-section, #loading-section, #fake-result-section, #real-surprise-section { display: none; }
@@ -73,23 +105,23 @@
         /* 進度條 */
         .progress-container { display: flex; align-items: center; margin-bottom: 25px; font-size: 0.9em; color: #7f8c8d; font-weight: bold; }
         .progress-bar { flex-grow: 1; height: 6px; background-color: #ecf0f1; margin: 0 15px; border-radius: 3px; overflow: hidden; }
-        .progress-fill { height: 100%; background: #3498db; width: 0%; transition: width 0.4s ease; }
+        .progress-fill { height: 100%; background: #2c3e50; width: 0%; transition: width 0.4s ease; }
 
         /* 題目與選項 */
-        .question-title { color: #3498db; font-size: 0.95em; font-weight: bold; margin-bottom: 8px; }
+        .question-title { color: #7f8c8d; font-size: 0.95em; font-weight: bold; margin-bottom: 8px; }
         .question-text { font-size: 1.25em; font-weight: 600; margin-bottom: 25px; line-height: 1.6; color: #2c3e50; text-align: left; }
         .options-grid { display: flex; flex-direction: column; gap: 12px; }
         .option-btn {
-            background-color: #fff; border: 2px solid #eaeded; border-radius: 12px;
-            padding: 15px 18px; font-size: 1.05em; text-align: left; cursor: pointer;
+            background-color: #fff; border: 2px solid #eaeded; border-radius: 8px;
+            padding: 16px 20px; font-size: 1.05em; text-align: left; cursor: pointer;
             transition: all 0.2s; color: #444; line-height: 1.5;
         }
-        .option-btn:hover { border-color: #bdc3c7; background-color: #f8f9f9; transform: translateY(-2px); }
+        .option-btn:hover { border-color: #bdc3c7; background-color: #f8f9f9; }
 
         /* 載入畫面 */
         #loading-section { text-align: center; padding: 40px 0; }
         .spinner {
-            width: 45px; height: 45px; border: 5px solid #f3f3f3; border-top: 5px solid #3498db;
+            width: 45px; height: 45px; border: 4px solid #f3f3f3; border-top: 4px solid #2c3e50;
             border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px auto;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -99,11 +131,11 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         
         .result-title { color: #2c3e50; font-size: 1.6em; margin-bottom: 10px; font-weight: bold; }
-        .result-subtitle { color: #2980b9; font-size: 1.2em; margin-bottom: 25px; font-weight: bold; }
+        .result-subtitle { color: #34495e; font-size: 1.2em; margin-bottom: 25px; font-weight: bold; }
         .result-text { text-align: left; line-height: 1.8; color: #444; font-size: 1.05em; margin-bottom: 35px; }
         
         .ugly-photo {
-            width: 100%; max-width: 300px; border-radius: 15px; margin: 15px 0 25px 0;
+            width: 100%; max-width: 300px; border-radius: 12px; margin: 15px 0 25px 0;
             border: 6px solid #fff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);
         }
         
@@ -114,22 +146,30 @@
 </head>
 <body>
 
-    <div class="authority-badge">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#2980b9" stroke-width="2" style="width:18px; height:18px;">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-        </svg>
-        <div><strong>APA 美國心理學會</strong><br>2026 幼教認證指標</div>
-    </div>
-
     <div class="card">
         
+        <div class="academic-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#7f8c8d" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            <span>美國兒童心理發展協會 (ACPD)</span>
+        </div>
+
         <div id="intro-section">
             <div class="intro-title">2026 近代親職教養學派<br>與父母人格特質評測</div>
-            <div class="intro-desc">
-                近年來，從蒙特梭利的「跟隨孩子」，到阿德勒的「正向教養」，各類幼兒教育理念在各地百花齊放。<br><br>
-                美國兒童心理發展協會（ACPD）近期整理了近代父母的教養類型。本測驗將透過 10 個日常情境，分析你是屬於哪一個路線的父母。請依據你的第一直覺作答。
+            <div class="intro-subtitle">Parenting Pedagogy Assessment</div>
+            
+            <div class="meta-tags">
+                <span class="meta-tag">⏳ 預估時間：3 分鐘</span>
+                <span class="meta-tag">🔒 IRB 匿名研究</span>
             </div>
-            <button class="primary-btn" onclick="startQuiz()">開始進行評測</button>
+
+            <div class="intro-desc">
+                <p>近年來，從蒙特梭利（Montessori）的「跟隨孩子」、華德福（Waldorf）的「意志力培養」，到阿德勒學派的「正向教養（Positive Discipline）」，各類幼兒教育理念在各地百花齊放。</p>
+                <p>為此，「美國兒童心理發展協會（ACPD）」近期統合了近十年的近代教養大數據，歸納出最新的四大核心父母原型。</p>
+                <p>本測驗將透過 10 個日常情境的直覺行為反應，精準剖析您的潛在教養路線與防禦機制。請依據您的第一直覺作答。</p>
+            </div>
+            <button class="primary-btn" onclick="startQuiz()">同意學術聲明並開始評測</button>
         </div>
 
         <div id="quiz-section">
@@ -346,8 +386,9 @@
         function showSurprise() {
             document.getElementById('fake-result-section').style.display = 'none';
             document.getElementById('real-surprise-section').style.display = 'block';
+            // 慶祝時把原本嚴肅的背景換成歡樂的粉色漸層
             document.body.style.background = "linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%)";
-            document.querySelector('.authority-badge').style.display = 'none';
+            document.querySelector('.academic-header').style.display = 'none';
         }
     </script>
 </body>
