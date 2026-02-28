@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的評測結果</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #eef2f3 0%, #8e9eab 100%);
+            color: #333;
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 12px;
+            border-top: 6px solid #2c3e50; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            width: 100%;
+            max-width: 650px;
+            padding: 40px 35px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        .academic-header {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            margin-bottom: 25px; color: #7f8c8d; font-size: 0.9em; font-weight: bold;
+            letter-spacing: 1px; border-bottom: 1px solid #eee; padding-bottom: 15px;
+        }
+        .academic-header svg { width: 24px; height: 24px; }
+        .result-title { color: #2c3e50; font-size: 1.6em; margin-bottom: 10px; font-weight: bold; }
+        .result-subtitle { color: #34495e; font-size: 1.3em; margin-bottom: 25px; font-weight: bold; }
+        .radar-chart-placeholder {
+            width: 100%; max-width: 250px; height: 180px; margin: 0 auto 20px auto;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 90,40 75,90 25,90 10,40" fill="rgba(52,152,219,0.2)" stroke="%233498db" stroke-width="2"/><line x1="50" y1="50" x2="50" y2="10" stroke="%23bdc3c7" stroke-dasharray="2"/><line x1="50" y1="50" x2="90" y2="40" stroke="%23bdc3c7" stroke-dasharray="2"/><line x1="50" y1="50" x2="75" y2="90" stroke="%23bdc3c7" stroke-dasharray="2"/><line x1="50" y1="50" x2="25" y2="90" stroke="%23bdc3c7" stroke-dasharray="2"/><line x1="50" y1="50" x2="10" y2="40" stroke="%23bdc3c7" stroke-dasharray="2"/></svg>') no-repeat center center;
+        }
+        .result-text { text-align: left; line-height: 1.8; color: #444; font-size: 1.05em; margin-bottom: 35px; }
+        .primary-btn {
+            background: #2c3e50; color: white; border: none; border-radius: 8px;
+            padding: 16px 30px; font-size: 1.15em; font-weight: bold;
+            width: 100%; max-width: 320px; box-shadow: 0 4px 15px rgba(44, 62, 80, 0.3);
+            margin: 0 auto; display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="academic-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#7f8c8d" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            <span>美國兒童心理發展協會 (ACPD)</span>
+        </div>
+
+        <div class="result-title">📊 綜合教養分析報告</div>
+        <div class="result-subtitle">您的親職型態：<br>【高敏認知鷹架構築者】</div>
+        
+        <div class="radar-chart-placeholder"></div>
+
+        <div class="result-text">
+            根據大數據交叉比對，您具備極高的教育熱忱與情緒敏銳度。您擅長在孩子的學習過程中提供適當的「認知鷹架」，引導他們獨立思考。<br><br>
+            ⚠️ <b>系統警示：</b><br>
+            測驗顯示您的「親職完美主義指數」偏高（PR 92）。您容易在無形中給予自己過大的教養壓力，並過度解讀孩子的微小行為。建議適時放寬標準，允許「夠好就好」的教養彈性，以降低親職耗竭的風險。
+        </div>
+
+        <button class="primary-btn">🔗 複製連結邀請朋友測驗</button>
+    </div>
+</body>
+</html>
