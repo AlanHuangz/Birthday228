@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2026 幼兒發展與親職教養心理評測 (ECP-Assessment)</title>
     <style>
-        /* 基礎與背景設定：改為更專業、溫和的學術藍綠色調 */
+        /* 基礎與背景設定：專業、溫和的學術藍綠色調 */
         body {
             font-family: 'PingFang TC', 'Helvetica Neue', sans-serif;
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
@@ -29,7 +29,7 @@
             position: relative;
         }
         
-        /* 假權威標章 (右下角) */
+        /* 假權威標章 */
         .authority-badge {
             position: fixed;
             bottom: 15px;
@@ -46,31 +46,14 @@
             gap: 8px;
             z-index: 100;
         }
-        .authority-badge img {
-            width: 20px;
-            height: 20px;
-        }
+        .authority-badge img { width: 20px; height: 20px; }
 
-        /* 歡迎首頁區塊 */
-        #intro-section {
-            text-align: center;
-            animation: fadeIn 0.8s;
-        }
-        .intro-title {
-            font-size: 1.8em;
-            color: #2c3e50;
-            margin-bottom: 15px;
-            line-height: 1.4;
-        }
-        .intro-desc {
-            color: #64748b;
-            font-size: 1.05em;
-            line-height: 1.7;
-            margin-bottom: 35px;
-            text-align: justify;
-        }
+        /* 歡迎首頁 */
+        #intro-section { text-align: center; animation: fadeIn 0.8s; }
+        .intro-title { font-size: 1.8em; color: #2c3e50; margin-bottom: 15px; line-height: 1.4; }
+        .intro-desc { color: #64748b; font-size: 1.05em; line-height: 1.7; margin-bottom: 35px; text-align: justify; }
         
-        /* 按鈕共用樣式 */
+        /* 按鈕 */
         .primary-btn {
             background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
             color: white; border: none; border-radius: 30px;
@@ -81,26 +64,16 @@
         }
         .primary-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4); }
 
-        /* 測驗區塊隱藏設定 */
-        #quiz-section, #loading-section, #fake-result-section, #real-surprise-section {
-            display: none;
-        }
+        /* 隱藏區塊 */
+        #quiz-section, #loading-section, #fake-result-section, #real-surprise-section { display: none; }
 
-        /* 進度條設計 */
-        .progress-container {
-            display: flex; align-items: center; margin-bottom: 30px; font-size: 0.9em; color: #7f8c8d; font-weight: bold;
-        }
-        .progress-bar {
-            flex-grow: 1; height: 6px; background-color: #ecf0f1; margin: 0 15px; border-radius: 3px; overflow: hidden;
-        }
-        .progress-fill {
-            height: 100%; background: #3498db; width: 0%; transition: width 0.4s ease;
-        }
+        /* 進度條 */
+        .progress-container { display: flex; align-items: center; margin-bottom: 30px; font-size: 0.9em; color: #7f8c8d; font-weight: bold; }
+        .progress-bar { flex-grow: 1; height: 6px; background-color: #ecf0f1; margin: 0 15px; border-radius: 3px; overflow: hidden; }
+        .progress-fill { height: 100%; background: #3498db; width: 0%; transition: width 0.4s ease; }
 
         /* 題目與選項 */
-        .question-text {
-            font-size: 1.35em; font-weight: 600; margin-bottom: 25px; line-height: 1.5; color: #2c3e50;
-        }
+        .question-text { font-size: 1.35em; font-weight: 600; margin-bottom: 25px; line-height: 1.5; color: #2c3e50; }
         .options-grid { display: flex; flex-direction: column; gap: 12px; }
         .option-btn {
             background-color: #fff; border: 2px solid #eaeded; border-radius: 12px;
@@ -128,14 +101,7 @@
             width: 100%; max-width: 320px; border-radius: 15px; margin: 20px 0;
             border: 8px solid #fff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);
         }
-        /* 確保生日字體不會斷行 */
-        .bday-text { 
-            font-size: 2.2em; 
-            color: #e74c3c; 
-            font-weight: bold; 
-            margin: 15px 0; 
-            white-space: nowrap; 
-        }
+        .bday-text { font-size: 2.2em; color: #e74c3c; font-weight: bold; margin: 15px 0; white-space: nowrap; }
     </style>
 </head>
 <body>
@@ -144,19 +110,16 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="#2980b9" stroke-width="2" style="width:18px; height:18px;">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
         </svg>
-        <div>
-            <strong>APA 美國心理學會</strong><br>
-            2026 發展心理學認證指標
-        </div>
+        <div><strong>APA 美國心理學會</strong><br>2026 發展心理學認證指標</div>
     </div>
 
     <div class="card">
         
         <div id="intro-section">
-            <h1 class="intro-title">2026 幼兒發展與親職教養<br>心理深度評測</h1>
+            <h1 class="intro-title">2026 近代親職教養學派<br>與父母人格特質評測</h1>
             <p class="intro-desc">
-                本測驗基於皮亞傑（Piaget）認知發展理論與當代神經教育學大數據整合而成。透過 10 個情境式的直覺問答，系統將精準剖析您的「深層教養潛意識」與「親職壓力耐受模型」。<br><br>
-                請在不假思索的情況下，選擇最符合您直覺反應的選項，以確保常模數據的準確性。
+                近年來，從蒙特梭利（Montessori）到阿德勒的正向教養（Positive Discipline），各類幼兒教育理念百花齊放。<br><br>
+                為此，「美國兒童心理發展協會（ACPD）」統合了近十年的近代教養大數據，歸納出四大核心父母原型。本測驗將透過 10 個日常情境，精準剖析您的潛在教養路線與防禦機制。請依據第一直覺作答。
             </p>
             <button class="primary-btn" onclick="startQuiz()">開始進入評測</button>
         </div>
@@ -182,7 +145,7 @@
             <h3 style="color: #2980b9; margin-top: -10px;">您的親職型態：【非典型韌性引導者】</h3>
             <div class="result-text">
                 <p>根據數據交叉比對，特別是最後兩項「極端壓力下的神經反射」指標，系統發現您的教養模式打破了傳統亞洲家長的焦慮框架。</p>
-                <p>您具備極高的情緒容忍度。在面對幼兒無預警的情緒崩潰，或是自身的物理性疼痛（如踩到尖銳玩具）時，您的大腦邊緣系統能瞬間啟動高階的自我調節機制，展現出驚人的黑色幽默與韌性。</p>
+                <p>您具備極高的情緒容忍度。在面對幼兒無預警的情緒崩潰，或是自身的物理性資源匱乏（如衛生紙危機）時，您的大腦邊緣系統能瞬間啟動高階的自我調節機制，展現出驚人的黑色幽默與韌性。</p>
                 <p>此類親職型態在系統資料庫中極為罕見。系統已根據您的測驗數值，生成了您專屬的「深層靈魂具象化圖像」。</p>
             </div>
             <button class="primary-btn" style="max-width: 100%;" onclick="showSurprise()">點擊解鎖深層特質圖像 👇</button>
@@ -190,9 +153,7 @@
 
         <div id="real-surprise-section">
             <p style="font-size: 1.2em; color: #2c3e50; font-weight: bold; margin-bottom: 5px;">通常擁有這種強大特質的人，長這樣：</p>
-            
             <img class="ugly-photo" src="funny-pic.jpg" alt="專屬特質照">
-            
             <div class="bday-text">🎉 儒馨，生日快樂 🎉</div>
             <p style="font-size: 1.1em; color: #555; line-height: 1.6;">
                 好啦不鬧了！前面八題我掰得超辛苦的好嗎 😂<br>
@@ -204,47 +165,96 @@
     </div>
 
     <script>
-        // 題庫設定：1-8題學術育兒，9-10題一本正經的幹話
         const questions = [
             {
-                q: "當幼兒在公共場域引發高強度的情緒崩潰（Tantrum）時，您首選的介入策略是？",
-                options: ["尋找安靜角落進行物理隔離與冷靜", "蹲下進行情緒同理與鏡像反射", "運用替代性刺激（如玩具、點心）轉移注意力", "保持靜默以避免產生不當的行為增強"]
+                q: "【粗大動作與挫折耐受度指標】\n當幼兒在探索環境時意外跌倒（在無立即性危險的情況下），您的第一直覺反應與介入策略通常是？",
+                options: [
+                    "立即介入，提供肢體支持並給予高度的口語安撫。",
+                    "展現口語關懷，但在旁陪伴並鼓勵其自行起身。",
+                    "刻意延遲介入，退居觀察者，等待孩子主動尋求協助。",
+                    "保持靜默與內在穩定，僅提供非語言的肢體支持（如默默扶起）。"
+                ]
             },
             {
-                q: "關於幼兒在遊戲中進行「高風險/非結構化探索」（如攀爬高處），您的風險容忍閾值與應對為？",
-                options: ["預先排除所有潛在危險因子，確保絕對安全", "在一旁待命，允許有限度的試錯與探索", "鼓勵其挑戰極限，培養挫折耐受力", "轉過頭假裝沒看到，以降低自身的教養焦慮"]
+                q: "【飲食主導權與依附關係測試】\n當幼兒在餐桌上展現出強烈的「食物抗拒（Food Refusal）」，您的介入策略偏向？",
+                options: [
+                    "建立餐桌紀律，明確告知進食時間的界線，時間到即收餐。",
+                    "啟動回應式餵養，優先安撫情緒，嘗試更換食材形態以降低抗拒。",
+                    "尊重幼兒當下的生理主導權，不強迫進食，允許其體驗自然飢餓感。",
+                    "運用遊戲化策略或情境轉移，在愉悅的氛圍中引導完成營養攝取。"
+                ]
             },
             {
-                q: "面對幼童發展階段中必然出現的「防禦性虛構陳述」（說謊），您認為最佳的道德建構方式是？",
-                options: ["立即指正並給予相應的行為後果", "探討虛構陳述背後的心理需求與恐懼", "透過繪本或故事進行間接的道德引導", "視為認知能力提升的正常表現，順其自然"]
+                q: "【高強度情緒失調之鏡像神經元反應】\n若幼兒在公共場域因需求未獲滿足，就地躺下並引發情緒崩潰，您當下的自我調節機制為？",
+                options: [
+                    "迅速轉移陣地，提供一個低刺激的物理空間讓孩子冷靜。",
+                    "採取「Time-in」策略，在原地蹲下與其保持視線平行，提供安全感。",
+                    "溫和但堅定地提出另一個具吸引力的替代方案來轉移其注意力。",
+                    "執行「計畫性忽略」，在確保安全前提下，不給予該行為過多關注。"
+                ]
             },
             {
-                q: "在處理幼童間的資源分配衝突（如搶奪玩具）時，您傾向扮演何種引導角色？",
-                options: ["擔任法官，仲裁誰對誰錯並強制分配", "擔任教練，引導雙方表達情緒並尋求共識", "採取計時輪流制，建立絕對公平的規則", "採取袖手旁觀策略，讓社會化過程自然發生"]
+                q: "【同儕互動之資源分配與領地防禦】\n在公園沙坑中，您的孩子與其他幼童因爭奪玩具發生衝突，您的仲裁模式是？",
+                options: [
+                    "擔任溝通鷹架，引導雙方輪流表達借用需求，建立輪流常規。",
+                    "採取「觀察者介入」，僅客觀描述動作，讓幼兒自行發展解決機制。",
+                    "優先同理被搶奪者的失落情緒，同時引導另一方理解界線與尊重。",
+                    "運用環境資源轉移焦點，引導其中一方探索其他遊戲可能性。"
+                ]
             },
             {
-                q: "針對幼兒的「正向行為增強（Praise）」，您習慣採用的心理學回饋路徑是？",
-                options: ["讚美其與生俱來的天賦（如：你好聰明）", "讚美其過程中的努力與策略（如：你很用心嘗試）", "給予實質的物質獎勵作為代幣增強", "僅給予微笑或擁抱等非語言回饋"]
+                q: "【夜間分離焦慮與自主入睡機制】\n面對幼童的「睡眠抗拒」與夜間頻繁討安撫，您的睡眠建構哲學是？",
+                options: [
+                    "堅守高度結構化的睡前儀式，透過穩定的環境線索建立神經制約。",
+                    "實踐高需求回應的共眠（Co-sleeping），以最大化滿足安全感為優先。",
+                    "採用漸進式的溫和退場法，逐步拉開物理距離，陪伴發展自主接覺。",
+                    "運用過渡性客體（如安撫巾），將依附需求順利轉移至替代物品上。"
+                ]
             },
             {
-                q: "當幼兒提出超出您知識儲備的「無窮盡追問（Why phase）」時，您的認知鷹架搭建策略是？",
-                options: ["立刻拿出手機搜尋最精確的科學解答", "反問「你覺得為什麼呢？」以刺激其發散性思考", "運用擬人化或童話式的語言進行包裝解釋", "誠實表達不知道，並邀請孩子一起尋找答案"]
+                q: "【數位刺激暴露與多巴胺管控】\n在數位原住民世代，您對幼兒「螢幕時間（Screen Time）」的邊界管控原則是？",
+                options: [
+                    "嚴守神經發展保護原則，盡可能延遲接觸年齡並實施嚴格時間限制。",
+                    "將數位內容視為社會化一部分，偏好共同觀看並隨時進行內容探討。",
+                    "運用螢幕時間作為行為經濟學中的正向代幣，與日常任務建立對價關係。",
+                    "不刻意妖魔化 3C，將其視為父母喘息與幼兒放鬆的平衡工具。"
+                ]
             },
             {
-                q: "在數位原住民世代，您對幼兒「螢幕暴露時間（Screen Time）」的邊界管控原則是？",
-                options: ["嚴格遵守兒科醫學會建議，進行絕對的時間限制", "將螢幕視為電子保母，在需要喘息時作為交換條件", "強調內容的篩選，陪伴觀看並進行互動討論", "將螢幕時間與日常任務（如吃飯、收玩具）進行綁定"]
+                q: "【括約肌自主控制與介入時機】\n關於幼童的如廁訓練（戒尿布），您的發展期望與執行步調是？",
+                options: [
+                    "被動等待孩子展現出「生理與心理雙重準備好」的訊號才開始。",
+                    "採取階段性目標設定，固定時間引導如廁，建立規律生理時鐘。",
+                    "著重環境預備，布置專屬小馬桶，透過情境暗示降低對未知的不安。",
+                    "善用同儕示範效應（Social Modeling），透過觀察激發其內在動機。"
+                ]
             },
             {
-                q: "在皮亞傑（Piaget）的認知發展理論框架下，您認為學齡前階段最核心的學習載體應為？",
-                options: ["具備明確認知目標的結構化教材", "開放性且無既定規則的自由遊戲（Free Play）", "高度規律的日常生活作息與儀式感", "透過模仿主要照顧者的社交互動"]
+                q: "【內在驅動力建構與正向增強】\n當孩子獨自完成複雜的積木作品時，您習慣採用的口語回饋路徑是？",
+                options: [
+                    "聚焦「成長型思維」，具體稱讚其過程中的策略選擇與抗挫折韌性。",
+                    "著重「情感連結」，給予高強度的非語言正向回饋（如熱情擁抱）。",
+                    "偏好「客觀描述性讚美」，如實陳述作品細節，將評價權交還孩子。",
+                    "結合「實質增強物」，除了口頭肯定外，給予小貼紙等特權強化行為。"
+                ]
             },
             {
-                q: "【深層親職壓力閾值測試】當親生子嗣在凌晨 3 點爆發持續性高頻率聲波（夜啼）時，您的原始生存反射通常是？",
-                options: ["瞬間彈起，立刻進入最高戰備安撫狀態", "啟動伴侶喚醒機制（把另一半踢下床去處理）", "閉眼裝睡，進行腦內自我催眠「這一切都是幻覺」", "認真懷疑當年為何不養一隻貓就好"]
+                q: "【神經末梢與大腦皮層的基礎反射測試】\n根據親職耗竭研究，照顧者的生理慣性能反映深層壓力指數。經歷高壓育兒後，當您進入浴廁進行個人的大腸排空（大號）時，您的基礎清潔反射為？",
+                options: [
+                    "習慣啟動右側大腦運動皮層，慣用「左手」進行紙張與肌膚的物理摩擦。",
+                    "習慣啟動左側大腦運動皮層，慣用「右手」進行紙張與肌膚的物理摩擦。",
+                    "依賴現代科技輔助介入，傾向使用免治馬桶的高壓水柱進行深度清潔。",
+                    "展現極簡主義的生理應對機制，起身透過重力與肌肉甩動完成基礎乾燥。"
+                ]
             },
             {
-                q: "【終極教養創傷症候群檢測】承上題，若在黑暗中安撫子嗣的移動過程中，您的足底神經瞬間遭受「樂高積木（Lego）」的穿刺型物理爆擊，您當下的反應是？",
-                options: ["強行吞下慘叫避免吵醒孩子，導致嚴重內傷", "運用腹式呼吸法，強制轉化想痛扁人的衝動", "在腦海中認真擬定將家中所有玩具丟進垃圾桶的合法計畫", "發現這根本不是正經的心理測驗！！！"]
+                q: "【極端情境下的防禦機制與創傷反應】\n承上題，若在此時此刻，門外幼兒開始瘋狂哭鬧，而您的視覺神經同時接收到「廁所衛生紙存量為零」的災難性訊號，您的危機處理 SOP 是？",
+                options: [
+                    "啟動「母職犧牲閾值」，果斷脫下當下的貼身衣物（如襪子）作為替代耗材。",
+                    "觸發「戰鬥或逃跑反應」，採取半蹲姿態進行空間轉移，優先前往安撫聲源。",
+                    "進入「解離防禦機制」，坐在馬桶上深呼吸，試圖用冥想切斷現實的感官連結。",
+                    "展現極佳的「認知彈性（Cognitive Flexibility）」，冷靜地將僅存的滾筒紙軸（厚紙板）進行物理結構解離，完成最低限度的刮除清潔。"
+                ]
             }
         ];
 
@@ -301,9 +311,7 @@
         function showSurprise() {
             document.getElementById('fake-result-section').style.display = 'none';
             document.getElementById('real-surprise-section').style.display = 'block';
-            // 慶祝背景
             document.body.style.background = "linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%)";
-            // 隱藏右下角的假標章
             document.querySelector('.authority-badge').style.display = 'none';
         }
     </script>
